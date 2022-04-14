@@ -1,81 +1,75 @@
 #include <stdio.h>
-#include <stdbool.h> //biblioteca para usar tipo bool (true e false)
 
-int v[100];                     //Variavel global (tamanho do estacionamento).
-unsigned int estacionados = 0;  //Variavel global (quantidade de estacionados, unsigned segura apenas valores positivos).
+/*Para a entrada
+  1. Coletar a placa
+  2. Escolher vaga
+  3. Verificar se a vaga tá livre ou ocupada
+  4. Ao estacionar trocar o numero 0 pela placa
 
-int estaNoEstacionamento(int carro)     //Checa se há carro no vetor.
-{
-    for (int i = 0; i < 100; i++)
-    {
-        if (v[i] == carro) //Caso o carro tal do funcionario tal esteja entrando pela primeira vez, ele percorre o vetor (estac) e confirma a vaga pro carro.
-        {
-            return true;
-        }
-    }
-    return false;   //Caso já tenha um carro na respectiva vaga, ele retorna nada.
-}
+quando um valor for 1 significa existe/ocupado quando for 0 ñexiste/livre*/
 
-void addEstacionamento(int carro)   //Função de entrada do carro no estacionamento.
-{
+int vaga[10][10]; //estacionamento
+int pv[10][10]; //um pseudo estacionamento para pegar o lugar
+int olharvaga(int v, int p);
+int olharcarro(int p);
+void saida(int p);
 
-    if (estaNoEstacionamento) //Caso um funcionario tente estacionar 2x (entrar no estacionamento de novo).
-    {
-        printf("%d ja estava no estacionamento.\n", carro);
-        vagasLivres();
-        return;
-    }
+int main() {
+  int p, v, l=1, option; //p-placa, v-vaga, l-para preencher
 
-    if (estacionados == 100) //Caso estacionamento lotado
-    {
-        printf("Estacionamento cheio. Nao ha vagas\n\n");
-        vagasLivres();
-        return;
-    }
+  for(int i=0; i<10; i++){
+    for(int j=0; j<10; j++){
+      pv[i][j]=l; vaga[i][j]=0;
+      l++; }  } //preencher pseudovagas de 1 a 100 e vaga do estacionamento = 0
+  
+  do{
+  printf("2.Entrada 3.Saída 4.Estacionamento 5.Finalizar\n");
+  scanf("%i", &option);
+      
+    if(option==2){
+        printf("Número da placa: ");  scanf("%i", &p);
+        if      (olharcarro(p)==1){printf("Este carro já está no estacionamento\n");}
+        else if (olharcarro(p)==0){
+            printf("Vaga: ");             scanf("%i", &v);
+            if      (olharvaga(v, p)==0){printf("Carro Estacionado.\n");}
+            else if (olharvaga(v, p)==1){printf("Vaga ocupada.\n");}    }   }
 
-    v[estacionados] = carro; //Caso entre pela primeira vez
-    estacionados++;
-    printf("%d entrou no estacionamento na vaga: %d\n", carro, estacionados);
-    vagasLivres(estacionados);  //O carro que entrou vira um "estacionado".
-
-}
-
-void sairEstacionamento(int carro)  //Função de saida do carro no estacionamento.
-{
-    for (int i = 0; i < 100; i++)   //Percorre o vetor para verificar se o carro estava la mesmo.
-    {
-        if (v[i] == carro)  //Achou o que estava e agora quer sair.
-        {
-            v[i] = 0;
-            estacionados--;
-            printf("%d que estava na vaga %d saiu do estacionamento\n", carro, i + 1);
-            vagasLivres();
-            return;
-        }
-
-    }
-    printf("%d nao estava no estacionamento.\n", carro);    //Caso um carro que nunca tenha entrado tente sair.
-    vagasLivres();
-
-}
-
-void vagasLivres() //Falar quantas vagas sobram a cada operação.
-{
-    printf("Quantidade de vagas livres: %d\n\n", 100 - estacionados);
-}
+    if(option==3){
+        printf("Número da placa: ");  scanf("%i", &p);
+        if      (olharcarro(p)==0){printf("Este carro não está no estacionamento\n");   }
+        else if (olharcarro(p)==1){printf("Carro saiu, vaga liberada.\n"); saida(p);    }   }
+    
+    if(option==4){
+      for(int i=0; i<10; i++){
+    for(int j=0; j<10; j++){printf(" %i ",vaga[i][j]);}printf("\n");}  }
+      
+    if(option==5){printf("Sistema Finalizado");}
+    
+  } while (option!=5);
+  
+  return 0;  }
 
 
-int main()  //Operaçoes de entrada e saida de veiculos.
-{
-    addEstacionamento(3);
-    addEstacionamento(72);
-    addEstacionamento(55);
-    addEstacionamento(99);
-    addEstacionamento(1);
-    addEstacionamento(26);
 
-    sairEstacionamento(72);
-    sairEstacionamento(80);
+int olharcarro(int p){
+  int repost=0;
+    for(int i=0; i<10; i++){ //vê se o carro já existe no estacionamento.
+    for(int j=0; j<10; j++){
+        if(p==vaga[i][j]){repost=1;}  }  } return repost; }
 
-    return 0;
-}
+
+int olharvaga(int v, int p){
+  int i, j, valor;
+      for(int i=0; i<10; i++){ //ao achar a vaga, ele vê se ta livre ou ocupada.
+      for(int j=0; j<10; j++){ // se tiver livre ele já estaciona o carro
+          if(v==pv[i][j]){
+            if      (vaga[i][j]==0){valor=0; vaga[i][j]=p;} 
+            else if (vaga[i][j]!=0){valor=1;}
+          break;}  }  }
+  return valor;  }
+
+
+void saida(int p){
+  for(int i=0; i<10; i++){ //encontra o carro e retira ele
+  for(int j=0; j<10; j++){
+      if(p==vaga[i][j]){vaga[i][j]=0;}  }  }  }
