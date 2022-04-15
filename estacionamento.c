@@ -31,8 +31,7 @@ int main() {
             printf("Andar: ");        scanf("%i", &i);
             printf("Vaga: ");         scanf("%i", &j);
             if      (olharvaga(i, j, p)==0){printf("Carro Estacionado.\n");}
-            else if (olharvaga(i, j, p)==1){printf("Vaga ocupada.\n");}  
-          }  }
+            else if (olharvaga(i, j, p)==1){printf("Vaga ocupada.\n");}  }  }
 
     if(option==3){
         printf("Número da placa: ");  scanf("%i", &p);
@@ -43,10 +42,10 @@ int main() {
       for(int i=0; i<5; i++){
       for(int j=0; j<20; j++){printf(" %i ",vaga[i][j]);}printf("\n");}  }
 
-
-    if(option==7){printf("Sistema Finalizado");}
+    if(option==7){
+      printf("Sistema Finalizado");}
     
-    }  while(option!=7);
+    }  while(option!=7); 
   return 0;  }
 
 
@@ -60,7 +59,7 @@ int olharcarro(int p){
 
 
 int olharvaga(int i, int j, int p){ int valor=0;
-    if (vaga[i][j-1]==0){vaga[i][j-1]=p;}
+    if (vaga[i][j-1]==0){vaga[i][j-1]=p;} //verifica e estaciona
     else if (vaga[i][j-1]!=0){valor=1;}
   return valor;  }
 
