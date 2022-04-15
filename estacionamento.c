@@ -1,81 +1,97 @@
 #include <stdio.h>
-#include <stdbool.h> //biblioteca para usar tipo bool (true e false)
-
-int v[100];                     //Variavel global (tamanho do estacionamento).
-unsigned int estacionados = 0;  //Variavel global (quantidade de estacionados, unsigned segura apenas valores positivos).
-
-int estaNoEstacionamento(int carro)     //Checa se há carro no vetor.
-{
-    for (int i = 0; i < 100; i++)
-    {
-        if (v[i] == carro) //Caso o carro tal do funcionario tal esteja entrando pela primeira vez, ele percorre o vetor (estac) e confirma a vaga pro carro.
-        {
-            return true;
+int n=5,srvCarro[5][2]; //n servidores, matriz servidor - carro
+void preencheM(void){
+  int i,j;
+  for(i=0;i<n;i++){ // preenche a matriz srvCarro com 0 
+    for(j=0;j<2;j++){
+      srvCarro[i][j]=0;
+    }
+  }
+  return;
+}
+int verificaCad(int matricula){
+  int ans=0,i;
+  for(i=0;i<n;i++){ //ele só verifica o servidor na matriz (primeira coluna)
+    if(srvCarro[i][0]==0){
+      continue;
+    }
+    else if(matricula==srvCarro[i][0]){
+      ans=1;    
+    }
+    else{
+      continue;
+      }
+    } 
+  return ans;
+}
+void cadastro(void){
+  int i,j,matricula,placa,checkid;
+  printf("Matricula: "); 
+  scanf("%d",&matricula);
+  if(matricula>0){
+    checkid = verificaCad(matricula); 
+    if(checkid==1){ //verifica se o cara tá cadastrado
+      printf("Já cadastrado!\n");
+    }
+    else if(checkid==0){ //se não, ele cadastra o cara
+      for(i=0;i<n;i++){
+        if(srvCarro[i][0]!=0){ //se o valor da matriz for diferente de 0, ele n faz nada
+          continue;
         }
-    }
-    return false;   //Caso já tenha um carro na respectiva vaga, ele retorna nada.
-}
-
-void addEstacionamento(int carro)   //Função de entrada do carro no estacionamento.
-{
-
-    if (estaNoEstacionamento) //Caso um funcionario tente estacionar 2x (entrar no estacionamento de novo).
-    {
-        printf("%d ja estava no estacionamento.\n", carro);
-        vagasLivres();
-        return;
-    }
-
-    if (estacionados == 100) //Caso estacionamento lotado
-    {
-        printf("Estacionamento cheio. Nao ha vagas\n\n");
-        vagasLivres();
-        return;
-    }
-
-    v[estacionados] = carro; //Caso entre pela primeira vez
-    estacionados++;
-    printf("%d entrou no estacionamento na vaga: %d\n", carro, estacionados);
-    vagasLivres(estacionados);  //O carro que entrou vira um "estacionado".
-
-}
-
-void sairEstacionamento(int carro)  //Função de saida do carro no estacionamento.
-{
-    for (int i = 0; i < 100; i++)   //Percorre o vetor para verificar se o carro estava la mesmo.
-    {
-        if (v[i] == carro)  //Achou o que estava e agora quer sair.
-        {
-            v[i] = 0;
-            estacionados--;
-            printf("%d que estava na vaga %d saiu do estacionamento\n", carro, i + 1);
-            vagasLivres();
-            return;
+        else{ 
+          srvCarro[i][0]=matricula; //só é necessário analisar a matriz unidimensionalmente, pois, se não tiver servidor cadastrado na primeira coluna, não terá carro cadastrado na segunda, e se tiver, ele é ignorado
+          printf("Placa do Carro: ");
+          scanf("%d",&placa);
+          srvCarro[i][1]=placa;
+          break;
+          }
         }
-
+      }
+  }
+  else{
+    printf("Matricula inválida!\n");
+  }
+  return;
+}
+void imprimeM(void){
+  int i,j;
+  for(i=0;i<n;i++){ // imprime a matriz 
+    printf("[");
+    for(j=0;j<2;j++){
+      printf(" %2d ",srvCarro[i][j]);
     }
-    printf("%d nao estava no estacionamento.\n", carro);    //Caso um carro que nunca tenha entrado tente sair.
-    vagasLivres();
-
+    printf("] \n");
+  }
 }
-
-void vagasLivres() //Falar quantas vagas sobram a cada operação.
-{
-    printf("Quantidade de vagas livres: %d\n\n", 100 - estacionados);
-}
-
-
-int main()  //Operaçoes de entrada e saida de veiculos.
-{
-    addEstacionamento(3);
-    addEstacionamento(72);
-    addEstacionamento(55);
-    addEstacionamento(99);
-    addEstacionamento(1);
-    addEstacionamento(26);
-
-    sairEstacionamento(72);
-    sairEstacionamento(80);
-
-    return 0;
+int main(void) {
+  int opc=1,m;
+  preencheM();
+  while(opc!=0){
+  printf("Escolha uma opção: \n 1-Cadastrar \n 2- Verificar \n 3-Imprime matriz de servidores \n 0-End \n ");
+  scanf("%d",&opc);
+  switch(opc){
+    case 1:
+      cadastro();
+      break;
+    case 2:
+      printf("Digite a matricula: ");
+      scanf("%d",&m);
+      if(verificaCad(m)==1){
+        printf("Servidor ja cadastrado! \n ");
+      }
+      else{
+        printf("Servidor não cadastrado! \n ");
+      }
+      break;
+    case 3:
+      imprimeM();
+      break;
+    case 0:
+      break;
+    default:
+      printf("Escolha uma opção VÁLIDA\n");
+      break;
+    }
+  }
+  return 0;
 }
