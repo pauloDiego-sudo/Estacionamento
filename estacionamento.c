@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int n=5,srvCarro[5][2],vaga[5][20]; //n servidores, matriz servidor - carro, matriz do estacionamento
+int n=5,srvCarro[5][2],vaga[5][20]; //n servidores, matriz servidor-carro, matriz do estacionamento
 
 void preencheM(void){
   int i,j;
