@@ -47,7 +47,7 @@ int verificaCarro(int placa){
   return ans;
 }
 void cadastro(void){
-  int i,j,matricula,placa,checkid;
+  int i,j,matricula,placa,checkid,checkcarro;
   printf("Matricula: "); 
   scanf("%d",&matricula);
   if(matricula>0){
@@ -61,10 +61,18 @@ void cadastro(void){
           continue;
         }
         else{ 
-          srvCarro[i][0]=matricula; //só é necessário analisar a matriz unidimensionalmente, pois, se não tiver servidor cadastrado na primeira coluna, não terá carro cadastrado na segunda, e se tiver, ele é ignorado
+ //só é necessário analisar a matriz unidimensionalmente, pois, se não tiver servidor cadastrado na primeira coluna, não terá carro cadastrado na segunda, e se tiver, ele é ignorado
           printf("Placa do Carro: ");
           scanf("%d",&placa);
-          srvCarro[i][1]=placa;
+          checkcarro=verificaCarro(placa);
+          if(checkcarro==1){ //verifica se o carro tá cadastrado
+          printf("Carro já cadastrado!\n");
+          
+          }
+        else if(checkcarro==0){
+            srvCarro[i][0]=matricula;
+            srvCarro[i][1]=placa;
+          }
           break;
           }
         }
