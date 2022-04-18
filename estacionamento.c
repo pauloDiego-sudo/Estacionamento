@@ -69,7 +69,7 @@ void cadastro(void){
   if(matricula>0){
     checkid = verificaCad(matricula); 
     if(checkid==1){ //verifica se o cara tá cadastrado
-      printf("Já cadastrado!\n");
+      printf("\nJá cadastrado!\n\n");
     }
     else if(checkid==0){ //se não, ele cadastra o cara
       for(i=0;i<n;i++){
@@ -83,23 +83,23 @@ void cadastro(void){
           if(placa>0){
             checkcarro=verificaCarro(placa);
             if(checkcarro==1){ //verifica se o carro tá cadastrado
-            printf("Carro já cadastrado!\n");
+            printf("\nCarro já cadastrado!\n\n");
             
             }
           else if(checkcarro==0){ //se nao, então ele cadastra o cara e o carro
               srvCarro[i][0]=matricula; 
               srvCarro[i][1]=placa;
-              printf("Servidor e carro cadastrado!\n");
+              printf("\nServidor e carro cadastrado!\n\n");
           }
           break;
           }
-          else{printf("Placa inválida!\n");break;}
+          else{printf("\nPlaca inválida!\n\n");break;}
           }
         }
       }
   }
   else{
-    printf("Matricula inválida!\n"); //valores <=0 não são aceitos
+    printf("Matricula inválida!\n\n"); //valores <=0 não são aceitos
   }
   return;
 }
@@ -112,6 +112,7 @@ void imprimeM(void){
     }
     printf("] \n");
   }
+printf("\n");
 }
 void imprimeMEstac(void){
   int i,j;
@@ -122,6 +123,7 @@ void imprimeMEstac(void){
     }
     printf("] \n");
   }
+printf("\n");
 }
 
 int olharcarro(int p){
@@ -137,12 +139,12 @@ int estaEstacionado(int placa){ //Vê se o carro está no etacionamento, e retor
     for(i = 0; i < a; i++){
         for(j = 0; j < vags; j++) {
             if(vaga[i][j] == placa) {
-                printf("O carro da placa %d esta no estacionamento\n Andar: %d Vaga: %d\n", placa,i,j+1);
+                printf("\nO carro da placa %d esta no estacionamento\n Andar: %d Vaga: %d\n\n", placa,i,j+1);
                 return true;
             }
         }
     }
-    printf("O carro da placa %d nao esta no estacionamento\n\n", placa);
+    printf("\nO carro da placa %d nao esta no estacionamento\n\n", placa);
     return false;
 }
 
@@ -171,7 +173,7 @@ int main(void) {
   int opc=1,m,p,v,i,j;
   preencheM();
   while(opc!=0){
-  printf("Escolha uma opção: \n 1-Cadastrar \n 2-Verificar cadastro \n 3-Verificar servidores e carros \n 4-Entrada \n 5-Saida \n 6-Ver Estacionamento \n 7-Vagas Livres e ocupadas \n 8-Ver carro no estacionamento \n 0-End \n ");
+  printf("ESCOLHA UMA OPÇÃO: \n 1-CADASTRAR. \n 2-VERIFICAR CADASTRO. \n 3-VERIFICAR SERVIDORES E CARROS. \n 4-ENTRADA. \n 5-SAIDA. \n 6-VER ESTACIONAMENTO. \n 7-VAGAS LIVRES E OCUPADAS. \n 8-VER CARRO NO ESTACIONAMENTO. \n 0-ENCERRAR PROGRAMA. \n ");
   scanf("%d",&opc);
   switch(opc){
     case 1:
@@ -181,14 +183,14 @@ int main(void) {
       printf("Digite a matricula: ");
       scanf("%d",&m);
       if(m<1){
-        printf("Cadastro inválido! \n ");
+        printf("\nCadastro inválido! \n\n ");
       }
       else if(verificaCad(m)==1){
-        printf("Servidor ja cadastrado! \n ");
-        printf("Placa do veículo: %d \n ",verificaCadECarro(m));        
+        printf("\nServidor ja cadastrado!\n");
+        printf("Placa do veículo: %d \n\n",verificaCadECarro(m));        
       }
       else{
-        printf("Servidor não cadastrado! \n ");
+        printf("\nServidor não cadastrado!\n\n");
       }
       break;
     case 3:
@@ -198,38 +200,38 @@ int main(void) {
       if(vagasLivres>0){
         printf("Número da placa: ");  scanf("%i", &p);
         if(verificaCarro(p)==1){
-          if(olharcarro(p)==1){printf("Este carro já está no estacionamento\n");}
+          if(olharcarro(p)==1){printf("\nEste carro já está no estacionamento\n\n");}
           else if (olharcarro(p)==0){
           printf("Andar: ");scanf("%i", &i);
           if(i>-1 && i<a){
             printf("Vaga: ");scanf("%i", &j);
             if(j>-1 && j<vags+1){
-              if(olharvaga(i, j, p)==0){printf("Carro Estacionado.\n");}
-              else if (olharvaga(i, j, p)==1){printf("Vaga ocupada.\n");}
+              if(olharvaga(i, j, p)==0){printf("\nCarro Estacionado.\n\n");}
+              else if (olharvaga(i, j, p)==1){printf("\nVaga ocupada.\n\n");}
             }
-            else{printf("Essa vaga não existe! Escolha entre %d e %d \n",vags/vags,vags);break;}
+            else{printf("Essa vaga não existe! Escolha entre %d e %d \n\n",vags/vags,vags);break;}
             }
           else{printf("Esse andar não existe! Escolha entre %d e %d \n OBS: 0 = Terreo\n",0,a-1);break;}
             }
         }
         else if(verificaCarro(p)==0){
-          printf("Carro nao cadastrado! \n");
+          printf("\nCarro nao cadastrado! \n\n");
         }
       }
-      else{printf("Não há vagas livres! \n");break;}
+      else{printf("\nNão há vagas livres! \n\n");break;}
       break;
     case 5:
       printf("Número da placa: ");  scanf("%i", &p);
       if(p>0){
-        if(olharcarro(p)==0){printf("Este carro não está no estacionamento\n");}
-        else if(olharcarro(p)==1){printf("Carro saiu, vaga liberada.\n"); saida(p);}}
-      else{printf("Placa inválida \n");}
+        if(olharcarro(p)==0){printf("\nEste carro não está no estacionamento\n\n");}
+        else if(olharcarro(p)==1){printf("\nCarro saiu, vaga liberada.\n\n"); saida(p);}}
+      else{printf("\nPlaca inválida \n\n");}
       break;
     case 6:
       imprimeMEstac();
       break;
     case 7:
-      printf("Vagas Livres: %d \n Vagas ocupadas: %d \n",vagasLivres,estacionados);
+      printf("\nVagas Livres: %d \n Vagas ocupadas: %d \n\n",vagasLivres,estacionados);
       break;
     case 8:
       printf("Digite a placa do veiculo:\n");
@@ -237,9 +239,10 @@ int main(void) {
       estaEstacionado(p);
       break;
     case 0:
+      printf("\n.PROGRAMA ENCERRADO.\n");
       break;
     default:
-      printf("Escolha uma opção VÁLIDA\n");
+      printf("\nEscolha uma opção VÁLIDA\n\n");
       break;
     }
   }
