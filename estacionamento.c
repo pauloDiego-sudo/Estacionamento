@@ -135,7 +135,7 @@ int olharcarro(int p){
 int estaEstacionado(int placa){ //Vê se o carro está no etacionamento, e retorna o local, com andar e vaga ocupada
     int i, j;
     for(i = 0; i < a; i++){
-        for(j = 0; j < vags+1; j++) {
+        for(j = 0; j < vags; j++) {
             if(vaga[i][j] == placa) {
                 printf("O carro da placa %d esta no estacionamento\n Andar: %d Vaga: %d\n", placa,i,j+1);
                 return true;
