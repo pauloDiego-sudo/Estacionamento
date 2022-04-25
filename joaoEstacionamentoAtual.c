@@ -246,9 +246,14 @@ void vagasLivresEOcupadas(){
 
 int verCarroNoEstacionamento(){ //Criada para apenas puxar a função sem que ocorra erro no código.
     int p;
-        printf("Digite a placa do veiculo:\n");
-        scanf("%d", &p);
+      printf("Digite a placa do veiculo:\n");
+      scanf("%d", &p);
+    if(p>0){
     estaEstacionado(p);
+    }
+    else{
+      printf("Placa inválida!!!!\n");
+    }
 }
 
 int saida(int p){ //Mudei o nome por questão de localização saida() --> saida2() DICA: com o atalho ctrl + f no vs code (mesmo que ctrl + g em qualquer navegador decente) voce pode localizar as palavras em todo o código.
