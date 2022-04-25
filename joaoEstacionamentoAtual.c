@@ -274,7 +274,7 @@ int saida(int p){ //Mudei o nome por questão de localização saida() --> saida
 //Cases limpos :)
 
 int main(void) {
-    int opc=1,m,p,v,i,j;
+    int opc=1, p;
     preencheM();
     while(opc!=0){
     printf("\nEscolha uma opção: \n 1-CADASTRAR \n 2-VERIFICAR CADASTRO \n 3-VERIFICAR SERVIDORES E CARROS \n 4-ENTRADA \n 5-SAIDA \n 6-VER ESTACIONAMENTO \n 7-VAGAS LIVRES E OCUPADAS \n 8-VER CARRO NO ESTACIONAMENTO \n 0-ENCERRAR PROGRAMA \n ");
