@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-int n=5,a=5,vags=20,srvCarro[5][2],vaga[5][20],vagasLivres=100,estacionados=0; //n servidores, a andares, vags vagas, matriz servidor-carro, matriz do estacionamento
+int n=200,a=5,vags=20,srvCarro[200][2],vaga[5][20],vagasLivres=100,estacionados=0; //n=servidores, a=andares, vags=vagas, matriz: servidor-carro, matriz do estacionamento: vaga[5][20]
 
 void preencheM(void){
     int i,j;
@@ -201,7 +201,7 @@ int saida2(int p){
 
 int entrada(){
     int p, i, j;
-        if(vagasLivres>0){
+        if(vagasLivres>0){ // para cada entrada, ele verifica se há vagas livres, e se a vaga escolhida é válida, e ainda assim verifica se o carro do servidor está cadastrado no sistema
                     printf("Número da placa: ");  scanf("%i", &p);
                     if(verificaCarro(p)==1){
                             if(olharcarro(p)==1){
@@ -240,7 +240,7 @@ int entrada(){
                 }
 }
 
-void vagasLivresEOcupadas(){
+void vagasLivresEOcupadas(){ //imprime a quantidade de vagas livres e ocupadas
     printf("\nVagas Livres: %d \n Vagas ocupadas: %d \n",vagasLivres,estacionados);
 }
 
@@ -256,7 +256,7 @@ int verCarroNoEstacionamento(){ //Criada para apenas puxar a função sem que oc
     }
 }
 
-int saida(int p){ //Mudei o nome por questão de localização saida() --> saida2() DICA: com o atalho ctrl + f no vs code (mesmo que ctrl + g em qualquer navegador decente) voce pode localizar as palavras em todo o código.
+int saida(int p){ // saida() --> saida2()
         printf("Número da placa: ");  
     scanf("%i", &p);
     if(p>0){
