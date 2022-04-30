@@ -1,3 +1,5 @@
+//Autores: João Vitor Silva Assunção, Maria Augusta Sousa Rios, Paulo Diego De Meneses
+
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -148,9 +150,9 @@ void imprimeMEstac(void){
 }
 
 int olharcarro(int p){
-    int repost=0;
-        for(int i=0; i<a; i++){ //vê se o carro já existe no estacionamento. e retorna sim ou nao (1 ou 0) serve para a função de entrada no estacionamento
-            for(int j=0; j<vags; j++){
+    int i,j,repost=0;
+        for(i=0; i<a; i++){ //vê se o carro já existe no estacionamento. e retorna sim ou nao (1 ou 0) serve para a função de entrada no estacionamento
+            for(j=0; j<vags; j++){
                 if(vaga[i][j]==p){
                     repost=1;
                 }  
@@ -189,9 +191,9 @@ int olharvaga(int i, int j, int p){
 
 
 int saida2(int p){
-    
-    for(int i=0; i<a; i++){ //encontra o carro e retira ele e devolve a vaga pro contador
-        for(int j=0; j<vags; j++){
+    int i,j;
+    for(i=0; i<a; i++){ //encontra o carro e retira ele e devolve a vaga pro contador
+        for(j=0; j<vags; j++){
             if(p==vaga[i][j]){
                 vaga[i][j]=0;vagasLivres++;estacionados--;
             }  
